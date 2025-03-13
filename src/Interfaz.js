@@ -4,7 +4,98 @@ import Game from './Game.js';
 let btn_player1 = document.getElementById('btn_player1');
 let btn_player2 = document.getElementById('btn_player2');
 let player1, player2, pj1 = '', pj2 = '', aceptar = 0;
-let turno = 1; 
+let turno = 1;
+
+const Ataque = {
+    "Goku": {
+        "color": "linear-gradient(to right, rgba(67, 198, 172, 0.5), rgba(255, 0, 0, 0.5))",
+        "atk1": "Ataque de ki!!",
+        "atk2": "Kame... Kame... Hame... Haaa!!!!",
+        "ki": "AAAHHH!!!",
+        "curar": "Ta bien!! 💶",
+        "imagenBase": "./public/img/Goku/base.png",
+        "imagenAtk1": "./public/img/Goku/basico.png",
+        "imagenAtk2": "./public/img/Goku/especial.png",
+        "imagenCurar": "./public/img/Goku/curar.png"
+    },
+    "Vegitto": {
+        "color": "linear-gradient(to right, rgba(67, 198, 172, 0.5), rgba(0, 0, 255, 0.5))",
+        "atk1": "Attaque de ki!!",
+        "atk2": "Kame... Kame... Hame... Haaa!!!!",
+        "ki": "AAAHHH!!!",
+        "curar": "Como nuevo!!! 💶",
+        "imagenBase": "./public/img/Vegitto/base.png",
+        "imagenAtk1": "./public/img/Vegitto/basico.png",
+        "imagenAtk2": "./public/img/Vegitto/especial.png",
+        "imagenCurar": "./public/img/Vegitto/curar.png"
+    },
+    "Trunks": {
+        "color": "linear-gradient(to right, rgba(67, 198, 172, 0.5), rgba(128, 0, 128, 0.5))",
+        "atk1": "Ataque de ki!!",
+        "atk2": "Espada del futuro!!",
+        "ki": "Haaaa!!!",
+        "curar": "Listo para seguir!! 💪",
+        "imagenBase": "./public/img/Trunks/base.png",
+        "imagenAtk1": "./public/img/Trunks/basico.png",
+        "imagenAtk2": "./public/img/Trunks/especial.png",
+        "imagenCurar": "./public/img/Trunks/curar.png"
+    },
+    "Gohan": {
+        "color": "linear-gradient(to right, rgba(67, 198, 172, 0.5), rgba(255, 165, 0, 0.5))",
+        "atk1": "Ataque de ki!!",
+        "atk2": "Kamehameha!!!",
+        "ki": "AAAHHH!!!",
+        "curar": "Me siento mejor!! 💊",
+        "imagenBase": "./public/img/Gohan/base.png",
+        "imagenAtk1": "./public/img/Gohan/basico.png",
+        "imagenAtk2": "./public/img/Gohan/especial.png",
+        "imagenCurar": "./public/img/Gohan/curar.png"
+    },
+    "Veguetta": {
+        "color": "linear-gradient(to right, rgba(67, 198, 172, 0.5), rgba(255, 0, 0, 0.5))",
+        "atk1": "Ataque de ki!!",
+        "atk2": "Final Flash!!!",
+        "ki": "AAAHHH!!!",
+        "curar": "Listo para la batalla!! 💥",
+        "imagenBase": "./public/img/Veguetta/base.png",
+        "imagenAtk1": "./public/img/Veguetta/basico.png",
+        "imagenAtk2": "./public/img/Veguetta/especial.png",
+        "imagenCurar": "./public/img/Veguetta/curar.png"
+    },
+    "Pikoro": {
+        "color": "linear-gradient(to right, rgba(67, 198, 172, 0.5), rgba(0, 128, 0, 0.5))",
+        "atk1": "Ataque de ki!!",
+        "atk2": "Makankosappo!!!",
+        "ki": "Haaaa!!!",
+        "curar": "Regeneración completa!! 🌱",
+        "imagenBase": "./public/img/Pikoro/base.png",
+        "imagenAtk1": "./public/img/Pikoro/basico.png",
+        "imagenAtk2": "./public/img/Pikoro/especial.png",
+        "imagenCurar": "./public/img/Pikoro/curar.png"
+    },
+    "Gogeta": {
+        "color": "linear-gradient(to right, rgba(67, 198, 172, 0.5), rgba(255, 215, 0, 0.5))",
+        "atk1": "Ataque de ki!!",
+        "atk2": "Big Bang Kamehameha!!!",
+        "ki": "AAAHHH!!!",
+        "curar": "Como nuevo!! 💫",
+        "imagenBase": "./public/img/Gogeta/base.png",
+        "imagenAtk1": "./public/img/Gogeta/basico.png",
+        "imagenAtk2": "./public/img/Gogeta/especial.png",
+        "imagenCurar": "./public/img/Gogeta/curar.png"
+    },
+    "Cell": {
+        "color": "linear-gradient(to right, rgba(67, 198, 172, 0.5), rgba(0, 255, 0, 0.5))",
+        "atk1": "Ataque de ki!!",
+        "atk2": "Poder Saiyano",
+        "ki": "AAAHHH!!!",
+        "curar": "Regeneración completa!! 🧬",
+        "imagenBase": "./public/img/Cell/base.png",
+        "imagenAtk1": "./public/img/Cell/basico.png",
+        "imagenAtk2": "./public/img/Cell/especial.png",
+        "imagenCurar": "./public/img/Cell/curar.png"
+    }
+};
 
 const alternarTurno = () => {
     turno = turno === 1 ? 2 : 1; 
@@ -213,22 +304,29 @@ document.getElementById("btn_atk_py1").addEventListener('click', () => {
         document.getElementById("vida_py2").innerText = `${porcentaje}%`;
 
         Swal.fire({
-            title: "Ataque Basico Jugador 1!",
-            text: "AHHHHHH",
+            title: Ataque[pj1].atk1,
+            text: "",
             width: 600,
             color: "#716add",
-            background: "#f5f5f5",
+            background: "transparent",
             imageUrl: `./public/img/${pj1}/basico.png`,
             imageWidth: 300,
             imageHeight: 300,
-            imageAlt: "Ataque Basico",
-            backdrop: "rgb(135, 204, 239,0.4)",
+            imageAlt: "Ataque Básico",
+            backdrop: "rgba(0, 0, 0, 0.5)",
+            customClass: {
+                popup: 'swal2-popup-transparent'
+            },
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.backgroundColor = "transparent";
+                document.querySelector('.swal2-popup').style.boxShadow = "none";
+            }
         });
 
         if (vidaJugador2 <= 0) {
             Swal.fire({
                 title: "¡GAME OVER!",
-                text: "El Jugador 2 ha sido derrotado 🏆",
+                text: "El Jugador 2 ha sido derrotado ",
                 icon: "warning",
                 confirmButtonText: "Reiniciar",
                 allowOutsideClick: false
@@ -268,22 +366,29 @@ document.getElementById("btn_esp_py1").addEventListener('click', () => {
         document.getElementById("vida_py2").innerText = `${porcentaje}%`;
 
         Swal.fire({
-            title: "Ataque Especial Jugador 1 👊!",
-            text: "KAHHHHHH",
+            title: Ataque[pj1].atk2,
+            text: "",
             width: 600,
             color: "#716add",
-            background: "#f5f5f5",
+            background: "transparent",
             imageUrl: `./public/img/${pj1}/especial.png`,
             imageWidth: 300,
             imageHeight: 300,
             imageAlt: "Ataque Especial",
-            backdrop: "rgb(135, 204, 239,0.4)",
+            backdrop: "rgba(0, 0, 0, 0.5)",
+            customClass: {
+                popup: 'swal2-popup-transparent'
+            },
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.backgroundColor = "transparent";
+                document.querySelector('.swal2-popup').style.boxShadow = "none";
+            }
         });
 
         if (vidaJugador2 <= 0) {
             Swal.fire({
                 title: "¡GAME OVER!",
-                text: "El Jugador 2 ha sido derrotado 🏆",
+                text: "El Jugador 2 ha sido derrotado ",
                 icon: "warning",
                 confirmButtonText: "Reiniciar",
                 allowOutsideClick: false
@@ -317,21 +422,21 @@ document.getElementById("btn_ermi_py1").addEventListener('click', () => {
         document.getElementById("vida_py1").innerText = `${porcentaje}%`;
 
         Swal.fire({
-            title: "CURACION!!",
-            text: "CURANDO..",
+            title: Ataque[pj1].curar,
+            text: "",
             width: 600,
+            background: "transparent",
             imageUrl: `./public/img/${pj1}/curar.png`,
             imageWidth: 400,
             imageHeight: 200,
-            imageAlt: "curacion",
-            backdrop: true,
+            imageAlt: "curación",
+            backdrop: "rgba(0, 0, 0, 0.5)",
             customClass: {
-                popup: 'custom-swal'
+                popup: 'swal2-popup-transparent'
             },
             didOpen: () => {
-                document.querySelector('.swal2-popup').style.background = 'linear-gradient(to bottom right, yellow, gray)';
-                document.querySelector('.swal2-popup').style.color = 'white';
-                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+                document.querySelector('.swal2-popup').style.backgroundColor = "transparent";
+                document.querySelector('.swal2-popup').style.boxShadow = "none";
             }
         });
     } else {
@@ -343,7 +448,6 @@ document.getElementById("btn_ermi_py1").addEventListener('click', () => {
     }
     alternarTurno(); 
 });
-
 document.getElementById("btn_ki_py1").addEventListener('click', () => {
     if (player1.getKi() >= 80) {
         Swal.fire({
@@ -360,27 +464,26 @@ document.getElementById("btn_ki_py1").addEventListener('click', () => {
         document.getElementById('ki_py1').innerText = `${porcentaje}%`;
 
         Swal.fire({
-            title: "REGENERAR KI!!",
-            text: "REGENERANDO..",
+            title: Ataque[pj1].ki,
+            text: "",
             width: 600,
+            background: "transparent",
             imageUrl: `./public/img/${pj1}/energia.png`,
             imageWidth: 400,
             imageHeight: 200,
-            imageAlt: "regeneracion",
-            backdrop: true,
+            imageAlt: "regeneración",
+            backdrop: "rgba(0, 0, 0, 0.5)",
             customClass: {
-                popup: 'custom-swal'
+                popup: 'swal2-popup-transparent'
             },
             didOpen: () => {
-                document.querySelector('.swal2-popup').style.background = 'linear-gradient(to bottom right, yellow, gray)';
-                document.querySelector('.swal2-popup').style.color = 'white';
-                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+                document.querySelector('.swal2-popup').style.backgroundColor = "transparent";
+                document.querySelector('.swal2-popup').style.boxShadow = "none";
             }
         });
     }
     alternarTurno();
 });
-
 document.getElementById("btn_atk_py2").addEventListener('click', () => {
     if (player2.getKi() < 5 || player2.getEnergia() < 10) {
         Swal.fire({
@@ -407,22 +510,29 @@ document.getElementById("btn_atk_py2").addEventListener('click', () => {
         document.getElementById("vida_py1").innerText = `${porcentaje}%`;
 
         Swal.fire({
-            title: "Ataque Basico Jugador 2!",
-            text: "AHHHHHH",
+            title: Ataque[pj2].atk1,
+            text: "",
             width: 600,
             color: "#716add",
-            background: "#f5f5f5",
+            background: "transparent",
             imageUrl: `./public/img/${pj2}/basico.png`,
             imageWidth: 300,
             imageHeight: 300,
-            imageAlt: "Ataque Basico",
-            backdrop: "rgb(135, 204, 239,0.4)",
+            imageAlt: "Ataque Básico",
+            backdrop: "rgba(0, 0, 0, 0.5)",
+            customClass: {
+                popup: 'swal2-popup-transparent'
+            },
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.backgroundColor = "transparent";
+                document.querySelector('.swal2-popup').style.boxShadow = "none";
+            }
         });
 
         if (vidaJugador1 <= 0) {
             Swal.fire({
                 title: "¡GAME OVER!",
-                text: "El Jugador 1 ha sido derrotado 🏆",
+                text: "El Jugador 1 ha sido derrotado ",
                 icon: "warning",
                 confirmButtonText: "Reiniciar",
                 allowOutsideClick: false
@@ -434,7 +544,6 @@ document.getElementById("btn_atk_py2").addEventListener('click', () => {
         }
     }
 });
-
 document.getElementById("btn_esp_py2").addEventListener('click', () => {
     if (player2.getKi() < 10 || player2.getEnergia() < 20) {
         Swal.fire({
@@ -461,22 +570,29 @@ document.getElementById("btn_esp_py2").addEventListener('click', () => {
         document.getElementById("vida_py1").innerText = `${porcentaje}%`;
 
         Swal.fire({
-            title: "Ataque Especial Jugador 2 👊!",
-            text: "KAHHHHHH",
+            title: Ataque[pj2].atk2,
+            text: "",
             width: 600,
             color: "#716add",
-            background: "#f5f5f5",
+            background: "transparent",
             imageUrl: `./public/img/${pj2}/especial.png`,
             imageWidth: 300,
             imageHeight: 300,
             imageAlt: "Ataque Especial",
-            backdrop: "rgb(135, 204, 239,0.4)",
+            backdrop: "rgba(0, 0, 0, 0.5)",
+            customClass: {
+                popup: 'swal2-popup-transparent'
+            },
+            didOpen: () => {
+                document.querySelector('.swal2-popup').style.backgroundColor = "transparent";
+                document.querySelector('.swal2-popup').style.boxShadow = "none";
+            }
         });
 
         if (vidaJugador1 <= 0) {
             Swal.fire({
                 title: "¡GAME OVER!",
-                text: "El Jugador 1 ha sido derrotado 🏆",
+                text: "El Jugador 1 ha sido derrotado ",
                 icon: "warning",
                 confirmButtonText: "Reiniciar",
                 allowOutsideClick: false
@@ -488,7 +604,6 @@ document.getElementById("btn_esp_py2").addEventListener('click', () => {
         }
     }
 });
-
 document.getElementById("btn_ermi_py2").addEventListener('click', () => {
     let semilla_Span = document.getElementById('se_p2');
     let contador_semilla = parseInt(semilla_Span.innerText);
@@ -510,21 +625,21 @@ document.getElementById("btn_ermi_py2").addEventListener('click', () => {
         document.getElementById("vida_py2").innerText = `${porcentaje}%`;
 
         Swal.fire({
-            title: "CURACION!!",
-            text: "CURANDO..",
+            title: Ataque[pj2].curar,
+            text: "",
             width: 600,
+            background: "transparent",
             imageUrl: `./public/img/${pj2}/curar.png`,
             imageWidth: 400,
             imageHeight: 200,
-            imageAlt: "curacion",
-            backdrop: true,
+            imageAlt: "curación",
+            backdrop: "rgba(0, 0, 0, 0.5)",
             customClass: {
-                popup: 'custom-swal'
+                popup: 'swal2-popup-transparent'
             },
             didOpen: () => {
-                document.querySelector('.swal2-popup').style.background = 'linear-gradient(to bottom right, yellow, gray)';
-                document.querySelector('.swal2-popup').style.color = 'white';
-                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+                document.querySelector('.swal2-popup').style.backgroundColor = "transparent";
+                document.querySelector('.swal2-popup').style.boxShadow = "none";
             }
         });
     } else {
@@ -536,7 +651,6 @@ document.getElementById("btn_ermi_py2").addEventListener('click', () => {
     }
     alternarTurno(); 
 });
-
 document.getElementById("btn_ki_py2").addEventListener('click', () => {
     if (player2.getKi() >= 80) {
         Swal.fire({
@@ -553,23 +667,23 @@ document.getElementById("btn_ki_py2").addEventListener('click', () => {
         document.getElementById('ki_py2').innerText = `${porcentaje}%`;
 
         Swal.fire({
-            title: "REGENERAR KI!!",
-            text: "REGENERANDO..",
+            title: Ataque[pj2].ki,
+            text: "",
             width: 600,
+            background: "transparent",
             imageUrl: `./public/img/${pj2}/energia.png`,
             imageWidth: 400,
             imageHeight: 200,
-            imageAlt: "regeneracion",
-            backdrop: true,
+            imageAlt: "regeneración",
+            backdrop: "rgba(0, 0, 0, 0.5)",
             customClass: {
-                popup: 'custom-swal'
+                popup: 'swal2-popup-transparent'
             },
             didOpen: () => {
-                document.querySelector('.swal2-popup').style.background = 'linear-gradient(to bottom right, yellow, gray)';
-                document.querySelector('.swal2-popup').style.color = 'white';
-                document.querySelector('.swal2-popup').style.borderRadius = '20px';
+                document.querySelector('.swal2-popup').style.backgroundColor = "transparent";
+                document.querySelector('.swal2-popup').style.boxShadow = "none";
             }
         });
     }
-    alternarTurno(); 
+    alternarTurno();
 });

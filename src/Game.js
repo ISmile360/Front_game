@@ -22,9 +22,9 @@ class Game{
     getUserName(){
         return this.#userName;
     }
-    setVida(decremento){
-        this.#vida -= decremento;
-    }
+    setVida(decremento) {
+        this.#vida = Math.max(0, this.#vida - decremento);
+    }    
     atk_basico(jugador){
         this.#ki -= this.#ki < 5 ? 0: 5;
         this.#energia -= this.#energia < 10 ? 0: 10;

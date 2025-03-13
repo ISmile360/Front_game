@@ -4,3 +4,15 @@ body{
     background-position: center center;
     
 }
+
+
+.swal2-popup-transparent {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+
+.swal2-popup-transparent .swal2-title,
+.swal2-popup-transparent .swal2-content {
+    color: white !important;  
+}
